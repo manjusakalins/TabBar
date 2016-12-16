@@ -632,7 +632,20 @@ function! <SID>Win_Find(bufName)
         "if g:Tb_DBG_LVL > 0
         "    call <SID>DEBUG('Found buffer ('.a:bufName.'): '.l:bufNr,9)
         "endif
-        let l:bufWinNr = bufwinnr(l:bufNr)
+	let l:bufWinNr = bufwinnr(l:bufNr)
+	let l:window_count = winnr('$')
+	"echom 'win count '. l:window_count
+	if l:bufWinNr == -1
+		let i = 1
+		while i <= l:window_count
+			"echom 'win'.i.': bufnr:'.winbufnr(i)
+			if bufname(winbufnr(i)) == a:bufName
+				let l:bufWinNr = i
+			endif
+			let i = i+1
+		endwhile
+
+	endif
     else
         let l:bufWinNr = -1
     endif
