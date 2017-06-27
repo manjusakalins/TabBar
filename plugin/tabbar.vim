@@ -120,7 +120,8 @@ noremap <unique> <script> <Plug>tbstart  :call <SID>Tb_Start(1, -1)<CR>:<BS>
 noremap <unique> <script> <Plug>tbstop   :call <SID>Tb_Stop(1)<CR>:<BS>
 noremap <unique> <script> <Plug>tbaut    :call <SID>Tb_Aup(-1)<CR>:<BS>
 noremap <unique> <script> <Plug>tbtoggle :call <SID>Tb_Toggle()<CR>:<BS>
-nnoremap <tab> :call <SID>Bf_SwitchTo(v:count)<CR>:<BS>
+nnoremap <expr> <tab> ':call <SID>Bf_SwitchTo('.v:count1.')<CR>:<BS>'
+
 " %%
 
 
@@ -146,7 +147,14 @@ if !exists(':Tbbn')
 endif
 if !exists(':Tbp')
       command! Tbbp call <SID>Bf_Cycle(0)
-endif " %%
+endif 
+if !exists(':Tbc')
+      command! Tbbc call <SID>Map_Clear()
+endif 
+
+" %% manza add
+noremap <expr> t ':call <SID>Bf_SwitchTo('.v:count1.')<CR>:<BS>'
+noremap <expr> <leader>t ':call <SID>Bf_SwitchTo('.nr2char(getchar()).')<CR>:<BS>'
 
 
 
