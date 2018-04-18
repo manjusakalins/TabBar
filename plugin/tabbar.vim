@@ -34,7 +34,7 @@ endif "%%
 " 5-9 = info ; 5 is the most important
 "  10 = Entry/Exit
 if !exists('g:Tb_DBG_LVL')
-      let g:Tb_DBG_LVL = 10
+      let g:Tb_DBG_LVL = 0
 endif" %%
 
 
@@ -47,9 +47,10 @@ endif" %%
 " 3 = log into g:Tb_DbgOutput
 "     global variable [This is the default]
 if !exists('g:Tb_DebugMode')
-      let g:Tb_DebugMode = 0
+      let g:Tb_DebugMode = 3
 endif" %%
 
+let g:Tb_DebugMode = 4
 
 " Mappings and Commands
 " TabBar Keyboard Mappings ~~
@@ -1474,7 +1475,10 @@ function! <SID>DEBUG(msg, level)
             endif
         elseif g:Tb_DebugMode == 3
             let g:Tb_DbgOutput = g:Tb_DbgOutput."\n".s:DBG_LN_CNT.':'.a:level.':'.a:msg
+        elseif g:Tb_DebugMode == 4
+            echom s:DBG_LN_CNT.':'.a:level.':'.a:msg
         endif
+
         let s:DBG_LN_CNT = s:DBG_LN_CNT + 1
 
         let &report  = l:save_rep
